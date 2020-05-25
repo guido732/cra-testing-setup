@@ -1,6 +1,5 @@
 // Gives autocompletion abilities
 import "@testing-library/jest-dom/extend-expect";
-// Enabled by default
-import "@testing-library/react/cleanup-after-each";
-// Disabled by default
+// cleanup after each is enabled by default
+// don't cleanup after each is Disabled by default
 // import "@testing-library/react/dont-cleanup-after-each"

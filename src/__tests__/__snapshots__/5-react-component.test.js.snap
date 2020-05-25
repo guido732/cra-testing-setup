@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyComponent renders without crashing & matches snapshot 1`] = `
+<DocumentFragment>
+  <label
+    class="false false false"
+    for="my-demo-input"
+  >
+    demo-input
+  </label>
+  <input
+    class="false false false "
+    id="my-demo-input"
+    placeholder=""
+    style="width: 400px;"
+    type="text"
+    value=""
+  />
+</DocumentFragment>
+`;

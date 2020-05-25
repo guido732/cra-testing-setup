@@ -11,69 +11,48 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 // Component to Test
-import MyComponent from "/MyComponent";
+import { MyComponent } from "../MyComponent";
 
 // Eliminar comentario para ver watch mode!
 describe("MyComponent", () => {
 	it("renders without crashing & matches snapshot", () => {
-		const { asFragment } = render(<MyComponent />);
+		const { asFragment } = render(<MyComponent label="demo-input" id="my-demo-input" />);
 		expect(asFragment()).toMatchSnapshot();
-		const MyComponent = screen.getByRole("textbox");
-		expect(MyComponent).toBeInTheDocument();
+		const mySelectedComponent = screen.getByRole("textbox", { name: /demo-input/i });
+		expect(mySelectedComponent).toBeInTheDocument();
 	});
 
 	it("accepts an input and shows it", () => {
-		render(<MyComponent />);
+		render(<MyComponent label="demo-input" id="my-demo-input" />);
 		const myText = "this is a demo text";
-		const MyComponent = screen.getByRole("textbox");
-		userEvent.type(MyComponent, myText);
-		expect(MyComponent).toHaveValue(myText);
+		const mySelectedComponent = screen.getByRole("textbox", { name: /demo-input/i });
+		userEvent.type(mySelectedComponent, myText);
+		expect(mySelectedComponent).toHaveValue(myText);
 	});
 
 	describe("state value", () => {
-		it("is error and shows an icon", () => {
-			render(<MyComponent error label="title" helperText="helper text" />);
-			const MyComponent = screen.getByRole("textbox");
-			const MyComponentTitle = screen.getByText("title");
-			const MyComponentHelperText = screen.getByText("helper text");
-			expect(MyComponent.parentElement).toHaveClass("Mui-error");
-			expect(MyComponent).toHaveClass("MuiOutlinedInput-inputAdornedEnd");
-			expect(MyComponent.nextSibling.firstChild).toHaveClass("error-icon");
-			expect(MyComponent.parentElement).not.toHaveClass("Mui-success");
-			expect(MyComponentTitle).toHaveClass("Mui-error");
-			expect(MyComponentHelperText).toHaveClass("Mui-error");
+		it("is error", () => {
+			render(<MyComponent label="demo-input" id="my-demo-input" error />);
+			const mySelectedComponent = screen.getByRole("textbox", { name: /demo-input/i });
+			expect(mySelectedComponent).toHaveClass("error");
+			expect(mySelectedComponent).not.toHaveClass("success");
 		});
 
-		it("is success state and shows an icon", () => {
-			render(<MyComponent success label="title" helperText="helper text" />);
-			const MyComponent = screen.getByRole("textbox");
-			expect(MyComponent.nextSibling.firstChild).toHaveClass("success-icon");
-			expect(MyComponent.parentElement.parentElement).toHaveClass("Mui-success");
-			expect(MyComponent).toHaveClass("MuiOutlinedInput-inputAdornedEnd");
-			expect(MyComponent.parentElement).not.toHaveClass("Mui-error");
+		it("is success state", () => {
+			render(<MyComponent label="demo-input" id="my-demo-input" success />);
+			const myComponent = screen.getByRole("textbox", { name: /demo-input/i });
+			expect(myComponent).toHaveClass("success");
+			expect(myComponent).not.toHaveClass("error");
 		});
 
 		it("is disabled", () => {
-			render(<MyComponent disabled label="title" helperText="helper text" />);
-			const MyComponent = screen.getByRole("textbox");
-			const MyComponentTitle = screen.getByText("title");
-			expect(MyComponent).toBeDisabled();
-			expect(MyComponent.parentElement).toHaveClass("Mui-disabled");
-			expect(MyComponentTitle).toHaveClass("Mui-disabled");
+			render(<MyComponent label="demo-input" id="my-demo-input" disabled />);
+			const myComponent = screen.getByRole("textbox", { name: /demo-input/i });
+			const myComponentTitle = screen.getByText("demo-input");
+			expect(myComponent).toBeDisabled();
+			expect(myComponent).toHaveClass("disabled");
+			expect(myComponentTitle).toHaveClass("disabled");
 		});
-	});
-
-	it("has a noborder variant that adds custom class", () => {
-		render(<MyComponent noBorder />);
-		const MyComponent = screen.getByRole("textbox");
-		expect(MyComponent.parentElement.parentElement).toHaveClass("no-border");
-	});
-
-	it("has a multiline variant that adds custom class", () => {
-		render(<MyComponent multiline />);
-		const MyComponent = screen.getByRole("textbox");
-		expect(MyComponent).toHaveClass("MuiOutlinedInput-inputMultiline");
-		expect(MyComponent.parentElement).toHaveClass("MuiOutlinedInput-multiline");
 	});
 
 	it("renders as a medium size (default/explicit)", () => {
@@ -83,79 +62,67 @@ describe("MyComponent", () => {
 				<MyComponent id="my-input-field-2" label="input Field 2" size="md" />
 			</>
 		);
-		const MyComponent1 = screen.getByLabelText("input Field 1");
-		const MyComponent2 = screen.getByLabelText("input Field 2");
-		expect(MyComponent1.parentElement.parentElement).toHaveAttribute("style", "width: 320px;");
-		expect(MyComponent2.parentElement.parentElement).toHaveAttribute("style", "width: 320px;");
+		const myComponent1 = screen.getByRole("textbox", { name: /input field 1/i });
+		const myComponent2 = screen.getByRole("textbox", { name: /input field 2/i });
+		expect(myComponent1).toHaveAttribute("style", "width: 400px;");
+		expect(myComponent2).toHaveAttribute("style", "width: 400px;");
 	});
 
 	it("renders as fullwidth", () => {
-		render(<MyComponent fullWidth />);
-		const MyComponent = screen.getByRole("textbox");
-		expect(MyComponent.parentElement.parentElement).toHaveAttribute("style", "width: 100%;");
+		render(<MyComponent label="demo-input" id="my-demo-input" fullWidth />);
+		const myComponent = screen.getByRole("textbox", { name: /demo-input/i });
+		expect(myComponent).toHaveAttribute("style", "width: 100%;");
 	});
 
 	it("renders as small", () => {
-		render(<MyComponent size="sm" />);
-		const MyComponent = screen.getByRole("textbox");
-		expect(MyComponent.parentElement.parentElement).toHaveAttribute("style", "width: 128px;");
+		render(<MyComponent label="demo-input" id="my-demo-input" size="sm" />);
+		const myComponent = screen.getByRole("textbox", { name: /demo-input/i });
+		expect(myComponent).toHaveAttribute("style", "width: 200px;");
 	});
 
 	it("has a placeholder text visible", () => {
 		const myText = "This is a placeholder text";
-		render(<MyComponent placeholder={myText} />);
-		const MyComponent = screen.getByPlaceholderText(myText);
-		expect(MyComponent).toBeInTheDocument();
+		render(<MyComponent label="demo-input" id="my-demo-input" placeholder={myText} />);
+		const myComponent = screen.getByPlaceholderText(myText);
+		expect(myComponent).toBeInTheDocument();
+		expect(myComponent).toBeVisible();
 	});
 
 	it("doesn't have a placeholder text visible", () => {
-		render(<MyComponent />);
-		const MyComponent = screen.getByRole("textbox");
-		expect(MyComponent.placeholder).toBe("");
+		render(<MyComponent label="demo-input" id="my-demo-input" />);
+		const myComponent = screen.getByRole("textbox", { name: /demo-input/i });
+		expect(myComponent.placeholder).toBe("");
 	});
 
 	it("has a label visible", () => {
-		const myText = "Demo label";
-		render(<MyComponent label={myText} id="my-input-field" />);
-		const MyComponent = screen.getByLabelText(myText);
-		expect(MyComponent).toBeInTheDocument();
-	});
-
-	it("has a helper text visible", () => {
-		const myText = "Demo Helper Text";
-		render(<MyComponent helperText={myText} helperTextId="my-helper-text" id="my-input-field" />);
-		const MyComponent = screen.getByText(myText);
-		expect(MyComponent).toBeInTheDocument();
+		render(<MyComponent label="demo-input" id="my-demo-input" />);
+		const myComponent = screen.getByLabelText("demo-input");
+		expect(myComponent).toBeInTheDocument();
+		expect(myComponent).toBeVisible();
 	});
 
 	it("has a valid ID", () => {
 		const myId = "my-input-field";
-		render(<MyComponent id={myId} />);
-		const MyComponent = screen.getByRole("textbox");
-		expect(MyComponent).toHaveProperty("id", myId);
+		render(<MyComponent label="demo-input" id={myId} />);
+		const myComponent = screen.getByRole("textbox", { name: /demo-input/i });
+		expect(myComponent).toHaveProperty("id", myId);
 	});
 
 	it("is an input of type Number", () => {
-		render(<MyComponent type="number" />);
-		const MyComponent = screen.getByRole("spinbutton");
-		expect(MyComponent).toHaveProperty("type", "number");
+		render(<MyComponent label="demo-input" id="my-demo-input" type="number" />);
+		const myComponent = screen.getByRole("spinbutton", { name: /demo-input/i });
+		expect(myComponent).toHaveProperty("type", "number");
 	});
 
 	it("is an input of type Text", () => {
-		render(<MyComponent type="text" />);
-		const MyComponent = screen.getByRole("textbox");
-		expect(MyComponent).toHaveProperty("type", "text");
+		render(<MyComponent label="demo-input" id="my-demo-input" type="text" />);
+		const myComponent = screen.getByRole("textbox", { name: /demo-input/i });
+		expect(myComponent).toHaveProperty("type", "text");
 	});
 
 	it("receives a className passed by props", () => {
-		render(<MyComponent inputClassName="demo-classname" />);
-		const MyComponent = screen.getByRole("textbox");
-		expect(MyComponent.parentElement.parentElement).toHaveClass("demo-classname");
-	});
-
-	it("receives a defaultValue", () => {
-		render(<MyComponent defaultValue="demo value" />);
-		const MyComponent = screen.getByRole("textbox");
-		expect(MyComponent).toHaveValue("demo value");
+		render(<MyComponent label="demo-input" id="my-demo-input" className="demo-classname" />);
+		const myComponent = screen.getByRole("textbox", { name: /demo-input/i });
+		expect(myComponent).toHaveClass("demo-classname");
 	});
 });

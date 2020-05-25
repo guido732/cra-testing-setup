@@ -9,7 +9,6 @@ export const MyComponent = ({
 	fullWidth = false,
 	value,
 	id = "",
-	name = "",
 	label = "",
 	type = "text",
 	className = "",
@@ -23,10 +22,11 @@ export const MyComponent = ({
 
 	return (
 		<>
-			<label htmlFor={id}>{label}</label>
+			<label className={`${disabled && "disabled"} ${error && "error"} ${success && "success"}`} htmlFor={id}>
+				{label}
+			</label>
 			<input
 				id={id}
-				name={name}
 				type={type}
 				value={value}
 				disabled={disabled}
