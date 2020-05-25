@@ -2,7 +2,7 @@
 
 Éste setup usa `Jest + React Testing Library + Puppeteer + Jest Runner Groups` e incluye ejemplos de uso para los tests.
 
-Basado en la siguiente charla introductoria: [Introducción a Testing c en React](https://slides.com/guido732/intro-testing-jest-rtl-cra-puppeteer/fullscreen)
+Basado en la siguiente charla introductoria: [Introducción a Testing en React](https://slides.com/guido732/intro-testing-jest-rtl-cra-puppeteer/fullscreen)
 
 ## Scripts customizados
 
