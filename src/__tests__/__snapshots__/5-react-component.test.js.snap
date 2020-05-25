@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputField renders without crashing & matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    aria-describedby=""
+    class="MuiFormControl-root MuiTextField-root false false  MuiFormControl-marginNormal"
+    style="width: 320px;"
+  >
+    <div
+      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
+    >
+      <input
+        aria-invalid="false"
+        class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
+        id=""
+        placeholder=""
+        type="text"
+        value=""
+      />
+      <div
+        class="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+      />
+      <fieldset
+        aria-hidden="true"
+        class="PrivateNotchedOutline-root-48 MuiOutlinedInput-notchedOutline"
+        style="padding-left: 8px;"
+      >
+        <legend
+          class="PrivateNotchedOutline-legend-49"
+          style="width: 0.01px;"
+        >
+          <span>
+            ​
+          </span>
+        </legend>
+      </fieldset>
+    </div>
+  </div>
+</DocumentFragment>
+`;
