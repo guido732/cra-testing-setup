@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+// import fetch from "fetch";
 const createUser = async () => {
 	const response = await fetch("http://website.com/users", { method: "POST" });
 	const userId = await response.text();

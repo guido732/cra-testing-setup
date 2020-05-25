@@ -5,11 +5,10 @@
  * @group demo
  */
 
-//  Fetch Mock
-import fetch from "node-fetch";
-jest.mock("node-fetch");
 // Component to test
 import { createUser } from "./utils/myComponent";
+
+global.fetch = jest.fn();
 
 describe("", () => {
 	it("createUser calls fetch with the right args and returns the user id", async () => {
